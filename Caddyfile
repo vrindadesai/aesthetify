@@ -1,0 +1,12 @@
+# Turn off admin API (opens unnecessary port)
+{
+	admin off
+}
+
+# Listen on port 8080 on all interfaces
+:8080 {
+	# Serve static files rooted from the public folder
+	# https://caddyserver.com/docs/caddyfile/directives/file_server
+	root * /workspace/docs
+	file_server
+}
