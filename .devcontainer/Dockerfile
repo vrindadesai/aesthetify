@@ -34,6 +34,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 # Install Angular CLI Globally
 RUN npm install -g @angular/cli
 
+
 # Use a non-root user per https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user
 ARG USERNAME=vscode
 ARG USER_UID=1000
