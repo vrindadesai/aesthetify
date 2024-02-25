@@ -1,0 +1,22 @@
+.workshop-card {
+    align-items: right;
+    justify-content: right;
+    padding: 10px 20px;
+    width: 400px;
+    height: 375px;
+   
+   
+   }
+   @supports (display: grid) {
+   .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    grid-template-columns: 300px 300px 300px 300px;
+   }
+   
+   
+   }
+
+
+   
