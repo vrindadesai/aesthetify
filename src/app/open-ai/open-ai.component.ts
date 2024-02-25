@@ -12,12 +12,13 @@ import {images} from '../images';
 export class OpenAiComponent {
 response: any | undefined;
 images = images;
-selectedImages: string | undefined
-selected = false;
+selectedImages: string  = ""
+loading = false;
 
 onButtonClick() {
+  this.loading=true;
 
-  async function main(){
+  async function main(keywords: string){
     const element = document.getElementById("output");
     const completion = await openai.chat.completions.create({
       messages: [
@@ -25,7 +26,7 @@ onButtonClick() {
           role: "system",
           content: "You are an assistant designed to output a html formatted, numbered list of 25 songs based on user keywords with a short and creative playlist title.",
         },
-        { role: "user", content: "summer, happy, beach, love, sad" },
+        { role: "user", content: keywords },
       ],
       model: "gpt-3.5-turbo-0125",
 
@@ -38,7 +39,10 @@ onButtonClick() {
 
     
   }
-  this.response =  main();
+  this.response =  main(this.selectedImages?? "");
+  setTimeout(() => {
+    this.loading = false;
+  }, 6000);
 }
 
 
@@ -47,18 +51,32 @@ storeResponse(response: string | null){
   this.response = response as String
 }
 
-onSelectCard(keywords: string){
-  this.selected = !this.selected;
+onSelectCard(keywords: string, id: number){
+  this.images[id-1].selected= !this.images[id-1].selected;
 
   if(this.selectedImages){
-    this.selectedImages.concat(", " + keywords);
+    this.selectedImages = this.selectedImages.concat(", ", keywords);
   }
   else{
-    this.selectedImages = keywords
+    this.selectedImages = keywords;
+
   }
 
 
 }
+onReset(){
+  this.selectedImages = "";
+  const element = document.getElementById("output");
+
+  this.images.forEach((image) => {
+    image.selected = false;
+  })
+
+  if(element){
+    element.innerHTML = "";
+  }
+}
+
 }
 
 

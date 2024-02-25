@@ -1,9 +1,7 @@
-.workshop-card {
-    align-items: right;
-    justify-content: right;
-    padding: 10px 20px;
-    width: 400px;
-    height: 375px;
+.card {
+    align-items: center;
+    padding: 10px 10px;
+
    
    
    }
@@ -17,6 +15,27 @@
    
    
    }
+
+   .card-selected {
+    border: 2px solid #283593;
+    padding: 8px 8px;
+
+  }
+  
+  .selection {
+    opacity: 0;
+    cursor: pointer;
+    color: #283593;
+    background: #fff;
+    position: absolute;
+    right:-10px;
+    top:-10px;
+    border-radius: 100%;
+    height: 24px;
+    width: 24px;
+  }
+
+
 
 
    

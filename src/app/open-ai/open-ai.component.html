@@ -8,10 +8,10 @@
 <div class="container px-5">
     <div class="row gx-5 align-items-center" >
         <div class="p-5 align-items-center">
-            <div class="row"fxLayout="row wrap" fxLayoutGap="grid">
+            <div class="row"fxLayout="row wrap" fxLayoutGap="16px grid ">
             <div class="container" display="flex" style="justify-content: center;">
                 <div *ngFor="let image of images">
-                    <mat-card class="card" (click)="onSelectCard(image.keywords)" [ngClass]="{'card-selected mat-elevation-z4': selected} ">
+                    <mat-card class="card" (click)="onSelectCard(image.keywords, image.id)" [ngClass]="{'card-selected mat-elevation-z4': image.selected} ">
                         <img src={{image.url}} class="card-img-top" alt="..." style="width:300px;height:300px;">
                         <!-- <div class="card-body">
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -25,7 +25,12 @@
 </div>
     <div class="row gx-5 align-items-center">
     
-            <button class="btn btn-primary btn-xl rounded-pill mt-5" (click)="onButtonClick()" (click)="onButtonClick()">Let's Go!</button>
+            <button id="loading-button" class="btn btn-primary btn-xl rounded-pill mt-5" (click)="onButtonClick()">Let's Go!</button>
+
+            <div *ngIf="this.loading">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+
+            </div>
         <!-- <p style="text-align: center !important;">Upload up to 5 images and generate a playlist!</p> -->
     </div>
     <div class="row gx-5 align-items-center">
@@ -33,5 +38,8 @@
 
         <p id="output"></p>
         </div>
+
+        <button class="btn btn-secondary btn-xl rounded-pill mt-5" (click)="onReset()" style="margin-bottom: 20px; margin-top: 0px !important">Reset Images</button>
+
     </div>
 

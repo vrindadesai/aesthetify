@@ -6,7 +6,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OpenAiComponent } from './open-ai/open-ai.component';
-import {MatCardModule} from 'node_modules/@angular/material/card';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 @NgModule({
   imports: [
@@ -14,6 +16,7 @@ import {MatCardModule} from 'node_modules/@angular/material/card';
     HttpClientModule,
     ReactiveFormsModule,
     MatCardModule,
+    MatProgressBarModule,
     RouterModule.forRoot([
       //{ path: 'cart', component: CartComponent },
     ])
