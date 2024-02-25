@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { OpenAiComponent } from './open-ai/open-ai.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: [
     AppComponent,
+    OpenAiComponent,
   ],
   bootstrap: [
     AppComponent
