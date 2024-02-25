@@ -5,18 +5,25 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { OpenAiComponent } from './open-ai/open-ai.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatCardModule,
+    MatProgressBarModule,
     RouterModule.forRoot([
       //{ path: 'cart', component: CartComponent },
     ])
   ],
   declarations: [
     AppComponent,
+    OpenAiComponent,
   ],
   bootstrap: [
     AppComponent

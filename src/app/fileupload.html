@@ -1,0 +1,55 @@
+<head>        <!-- Filestack API Key -->
+    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+</head>
+<div class="p-5">
+    <script>
+        //Instantiating dialog with Filestack
+        var client = filestack.init("AzFRUuEnpTHyXOZGLPWB9z");
+        var imageURL = "";
+
+        //const got = require('got');
+
+        function uploadFiles() {
+            const options = {
+                accept: ["image/*"],
+                maxFiles:5,
+                onUploadDone: file => {
+                    console.log(file);
+                    console.log("uploaded");
+                    imageURL = file["filesUploaded"][0]["url"];
+                    
+                    const apiKey = 'acc_f4633f34e965724';
+                    const apiSecret = 'ccb30e463c3e181fea6ea511fdd4c871';
+                    console.log("hiiiiii")
+                    const url = '/tags?image_url=' + encodeURIComponent(imageURL);
+
+
+                    (async () => {
+                        //try {
+
+                            await fetch(url, {username: apiKey, password: apiSecret})
+                            .then((response) => response.json())
+                            .then((data) => {
+                                // on success
+                                console.log(data)
+                            })
+                            .catch((error) => {
+                                console.error(error)
+                            });
+                            //const response = await fetch(url, {username: apiKey, password: apiSecret});
+                            //const data = response.json();
+                            //console.log(JSON.stringify(data));
+                        //} catch (error) {
+                        //    console.log("no")
+                        //    console.log(error.response.json());
+                        //}
+                    })();
+                }
+            };
+            client.picker(options).open();
+        }
+
+
+    </script>
+    <button onclick="uploadFiles()" type="button">Upload Images!</button>
+</div>
