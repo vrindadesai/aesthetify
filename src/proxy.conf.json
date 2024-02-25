@@ -1,0 +1,8 @@
+{
+    "/tags": {
+      "target": "https://api.imagga.com/v2",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+}
