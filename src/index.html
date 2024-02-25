@@ -62,7 +62,8 @@
             <script>
                 //Instantiating dialog with Filestack
                 var client = filestack.init("AzFRUuEnpTHyXOZGLPWB9z");
-                var imageURL = "";
+                // Array with all the urls
+                var imageURL = [];
                 var tags = [];
         
                 //const got = require('got');
@@ -70,51 +71,61 @@
                 function uploadFiles() {
                     const options = {
                         accept: ["image/*"],
-                        maxFiles:5,
+                        maxFiles:3,
                         onUploadDone: file => {
                             console.log(file);
-                            console.log("uploaded");
-                            imageURL = file["filesUploaded"][0]["url"];
-                            const element = document.getElementById("selectedImages");
-                            element.innerHTML = `<img src=${imageURL} height=\"200px\">`
                             
                             const apiKey = 'acc_f4633f34e965724';
                             const apiSecret = 'ccb30e463c3e181fea6ea511fdd4c871';
                             console.log("hiiiiii")
-                            const url = '/tags?image_url=' + encodeURIComponent(imageURL);
+
+                            console.log("uploaded");
+                            file["filesUploaded"].forEach((image) => imageURL.push(image["url"]));
+                            console.log(imageURL)
+
+                            var imagestr = ``
+                            for (let i=0; i<imageURL.length ; i++) {
+                                urlstring = imageURL[i];
+                                imagestr = imagestr.concat(`<img src=${urlstring} class="uploadimage" height=\"200px\">`)
+                            }
+                            console.log(imagestr)
+                            const element = document.getElementById("selectedImages");
+                            element.innerHTML = imagestr;
+                            
         
-        
-                            (async () => {
-                                //try {
-        
-                                    await fetch(url, {username: apiKey, password: apiSecret})
-                                    .then((response) => response.json())
-                                    .then((data) => {
-                                        // on success
-                                        console.log(data)
-                                        const tagArray = data["result"]["tags"]
-                                        for (let i = 0; i <= 50; i++) {
-                                            tags.push(tagArray[i]["tag"]["en"])
-                                        }
-                                        console.log(tags)
-                                        localStorage.setItem("tags", tags);
-                                    })
-                                    .catch((error) => {
-                                        console.error(error)
-                                    });
-                                    //const response = await fetch(url, {username: apiKey, password: apiSecret});
-                                    //const data = response.json();
-                                    //console.log(JSON.stringify(data));
-                                //} catch (error) {
-                                //    console.log("no")
-                                //    console.log(error.response.json());
-                                //}
-                            })();
+                            for (let i=0; i<imageURL.length ; i++) {
+                                var url = '/tags?image_url=' + encodeURIComponent(imageURL[i]);
+
+                                (async () => {
+            
+                                        await fetch(url, {username: apiKey, password: apiSecret})
+                                        .then((response) => response.json())
+                                        .then((data) => {
+                                            // on success
+                                            console.log(data);
+                                            const tagArray = data["result"]["tags"];
+                                            for (let i = 0; i <= 20; i++) {
+                                                tags.push(tagArray[i]["tag"]["en"]);
+                                                localStorage.setItem("tags", tags);
+                                            }
+                                            
+                                        })
+                                        .catch((error) => {
+                                            console.error(error);
+                                        });
+                                })();
+
+
+                                // End for loop above here
+                            }
+                            url = ""
+                            imageURL = []
+                            tags = []
                         }
                     };
                     client.picker(options).open();
                 }
-        
+
         
             </script>
             <div class="row gx-5 align-items-center" style="flex-wrap: nowrap; align-items: center; margin-bottom: 70px;">
