@@ -89,7 +89,7 @@ onReset(){
 
 
 
-const openai = new OpenAI({apiKey: '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', dangerouslyAllowBrowser: true});
+const openai = new OpenAI({apiKey: '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', dangerouslyAllowBrowser: true});
 
 
 
