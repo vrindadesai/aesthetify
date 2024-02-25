@@ -14,20 +14,17 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <!-- Filestack API Key -->
+      <!-- Filestack API Key -->
         <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
             <div class="container px-5">
-                <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand" href="#page-top">Aesthetify</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#!">Sign Up</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Log In</a></li>
-                    </ul>
+
                 </div>
             </div>
         </nav>
@@ -49,69 +46,91 @@
         <section id="scroll">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
-                    <div class="col-lg-6 order-lg-2">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src="assets/img/01.jpg" alt="..." /></div>
-                    </div>
                     <div class="col-lg-6 order-lg-1">
-                        <div class="p-5">
-                            <h2 class="display-4">For those about to rock...</h2>
-                            <button onclick="uploadFiles()" type="button">Upload Images!</button>
-                            <script>
-                                //Instantiating dialog with Filestack
-                                var client = filestack.init("AzFRUuEnpTHyXOZGLPWB9z");
-                                var imageURL = "";
-
-                                //const got = require('got');
-
-                                function uploadFiles() {
-                                    const options = {
-                                        accept: ["image/*"],
-                                        maxFiles:5,
-                                        onUploadDone: file => {
-                                            console.log(file);
-                                            console.log("uploaded");
-                                            imageURL = file["filesUploaded"][0]["url"];
-                                            
-                                            const apiKey = 'acc_f4633f34e965724';
-                                            const apiSecret = 'ccb30e463c3e181fea6ea511fdd4c871';
-                                            console.log("hiiiiii")
-                                            const url = '/tags?image_url=' + encodeURIComponent(imageURL);
-
-
-                                            (async () => {
-                                                //try {
-
-                                                    await fetch(url, {username: apiKey, password: apiSecret})
-                                                    .then((response) => response.json())
-                                                    .then((data) => {
-                                                        // on success
-                                                        console.log(data)
-                                                    })
-                                                    .catch((error) => {
-                                                        console.error(error)
-                                                    });
-                                                    //const response = await fetch(url, {username: apiKey, password: apiSecret});
-                                                    //const data = response.json();
-                                                    //console.log(JSON.stringify(data));
-                                                //} catch (error) {
-                                                //    console.log("no")
-                                                //    console.log(error.response.json());
-                                                //}
-                                            })();
-                                        }
-                                    };
-                                    client.picker(options).open();
-                                }
-
-
-                            </script>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- Content section 2-->
-        <section>
+        <div class="row gx-5 align-items-center">
+            <div class="p-5 align-items-center">
+        
+            <b><h2 class="fw-bold display-4 align-content-center" style="text-align: center !important;">Curate your vibe.... Get a playlist</h2></b>
+            <!-- <p style="text-align: center !important;">Upload up to 5 images and generate a playlist!</p> -->
+            </div>
+        </div>
+        <div class="p-5">
+            <script>
+                //Instantiating dialog with Filestack
+                var client = filestack.init("AzFRUuEnpTHyXOZGLPWB9z");
+                var imageURL = "";
+                var tags = [];
+        
+                //const got = require('got');
+        
+                function uploadFiles() {
+                    const options = {
+                        accept: ["image/*"],
+                        maxFiles:5,
+                        onUploadDone: file => {
+                            console.log(file);
+                            console.log("uploaded");
+                            imageURL = file["filesUploaded"][0]["url"];
+                            const element = document.getElementById("selectedImages");
+                            element.innerHTML = `<img src=${imageURL} height=\"200px\">`
+                            
+                            const apiKey = 'acc_f4633f34e965724';
+                            const apiSecret = 'ccb30e463c3e181fea6ea511fdd4c871';
+                            console.log("hiiiiii")
+                            const url = '/tags?image_url=' + encodeURIComponent(imageURL);
+        
+        
+                            (async () => {
+                                //try {
+        
+                                    await fetch(url, {username: apiKey, password: apiSecret})
+                                    .then((response) => response.json())
+                                    .then((data) => {
+                                        // on success
+                                        console.log(data)
+                                        const tagArray = data["result"]["tags"]
+                                        for (let i = 0; i <= 50; i++) {
+                                            tags.push(tagArray[i]["tag"]["en"])
+                                        }
+                                        console.log(tags)
+                                        localStorage.setItem("tags", tags);
+                                    })
+                                    .catch((error) => {
+                                        console.error(error)
+                                    });
+                                    //const response = await fetch(url, {username: apiKey, password: apiSecret});
+                                    //const data = response.json();
+                                    //console.log(JSON.stringify(data));
+                                //} catch (error) {
+                                //    console.log("no")
+                                //    console.log(error.response.json());
+                                //}
+                            })();
+                        }
+                    };
+                    client.picker(options).open();
+                }
+        
+        
+            </script>
+            <div class="row gx-5 align-items-center" style="flex-wrap: nowrap; align-items: center; margin-bottom: 20px;">
+
+            <button id="loading-button" class="btn btn-primary btn-xl rounded-pill mt-5" style="max-width: 30%; margin-left:15%; margin-top: 0 !important;" onclick="uploadFiles()" type="button">Upload Images!</button>
+            <h3 style="margin-left: 5%">Or... select from the images below!</h3>
+        
+        
+        </div>
+        <div style="display: flex" id="selectedImages"></div>
+        </div>
+        <!-- Content section 3-->
+        <app-root><app-open-ai></app-open-ai></app-root>
+    
+        <!-- <section>
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
@@ -126,8 +145,8 @@
                 </div>
             </div>
         </section>
-        <!-- Content section 3-->
-        <section>
+         Content section 3-->
+        <!-- <section>
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6 order-lg-2">
@@ -141,10 +160,10 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
         <!-- Footer-->
         <footer class="py-5 bg-black">
-            <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Your Website 2023</p></div>
+            <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; AESTHETIFY 2024</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
