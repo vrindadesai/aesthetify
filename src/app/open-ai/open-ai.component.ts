@@ -29,7 +29,7 @@ onButtonClick() {
       messages: [
         {
           role: "system",
-          content: "You are an assistant designed to output a html formatted, numbered list of 25 songs based on user keywords with a short and creative playlist title.",
+          content: "You are an assistant designed to output a html formatted, numbered list of 25 songs based on user keywords with a short and creative playlist title. The songs should be formatted according to the following template: 'Title' - Artist",
         },
         { role: "user", content: keywords },
       ],
@@ -37,7 +37,7 @@ onButtonClick() {
 
     }).then((completion) => {
       if(element){
-        element.innerHTML = completion.choices[0].message.content?? "";
+        element.innerHTML = "<header class='masthead text-white' style='padding: 10px !important; border-radius: 10px;'>" + completion.choices[0].message.content?? "" + "</header>";
       }
 
     }).catch(err => console.log(err));;
@@ -70,16 +70,18 @@ onSelectCard(keywords: string, id: number){
 
 }
 onReset(){
-  this.selectedImages = "";
-  const element = document.getElementById("output");
+  // this.selectedImages = "";
+  // const element = document.getElementById("output");
 
-  this.images.forEach((image) => {
-    image.selected = false;
-  })
+  // this.images.forEach((image) => {
+  //   image.selected = false;
+  // })
 
-  if(element){
-    element.innerHTML = "";
-  }
+  // if(element){
+  //   element.innerHTML = "";
+  // }
+  window.location.reload();
+  localStorage.clear()
 }
 
 }

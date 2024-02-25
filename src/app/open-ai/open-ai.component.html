@@ -17,7 +17,7 @@
     </div>
 </div>
     <div ng-include="'../fileupload.html'"></div>
-    <div class="row gx-5 align-items-center">
+    <div class="row gx-5 align-items-center" style="margin-bottom: 30px !important;">
     
             <button id="loading-button" class="btn btn-primary btn-xl rounded-pill mt-5" (click)="onButtonClick()">Let's Go!</button>
 
@@ -28,10 +28,8 @@
         <!-- <p style="text-align: center !important;">Upload up to 5 images and generate a playlist!</p> -->
     </div>
     <div class="row gx-5 align-items-center">
-        <div class="p-5 align-items-center">
-
-        <p id="output" style="align-items: center"></p>
-        </div>
+        
+        <p id="output" ></p>
 
         <button class="btn btn-secondary btn-xl rounded-pill mt-5" (click)="onReset()" style="margin-bottom: 20px; margin-top: 0px !important">Reset Images</button>
 
